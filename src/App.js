@@ -1,7 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { gql, useQuery } from "@apollo/client";
 
 function App() {
+  const GET_USERS = gql`
+    query GetAllUsers {
+      getAllTodos {
+        id
+        userId
+        title
+        user {
+          name
+        }
+      }
+      getAllUsers {
+        name
+        id
+      }
+    }
+  `;
+
+  const { loading, data } = useQuery(GET_USERS);
+
+  if (loading) return <h1>Loading...</h1>;
+
+  console.log(data);
+
   return (
     <div className="App">
       <header className="App-header">
